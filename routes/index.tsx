@@ -1,9 +1,12 @@
 import App from "../components/App.tsx";
+import Container from "../components/Container.tsx";
+import Header from "../components/Header.tsx";
 
 export default function Home() {
   return (
-    <div className="h-screen w-screen flex flex-col items-stretch overflow-y-hidden bg-white dark:bg-gray-900">
-      <App />
-    </div>
+    <Container>
+      <Header/>
+      <App/>
+    </Container>
   );
 }
