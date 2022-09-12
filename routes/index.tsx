@@ -1,4 +1,4 @@
-import App from "../components/App.tsx";
+import App from "../islands/App.tsx";
 import Container from "../components/Container.tsx";
 import Header from "../components/Header.tsx";
 
