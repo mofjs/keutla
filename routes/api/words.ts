@@ -1,18 +1,11 @@
 import { HandlerContext } from "$fresh/server.ts";
+import { get_words } from "../../utils/kbbi.ts";
 
 export const handler = async (
   _req: Request,
   _ctx: HandlerContext,
 ): Promise<Response> => {
-  const kbbi = await fetch("https://kbbi.vercel.app").then((res) => res.json());
-  const words = kbbi.entries
-    .map((entry: string) => {
-      const [word] = entry.split("/").reverse();
-      return word;
-    })
-    .filter((word: string) =>
-      /^[a-z]+$/.test(word) && word.length >= 5 && word.length <= 8
-    );
+  const words = await get_words();
   return new Response(JSON.stringify(words), {
     headers: {
       "Content-Type": "application/json",

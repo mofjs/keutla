@@ -1,5 +1,7 @@
 {
   "imports": {
+    "$std/": "https://deno.land/std@0.142.0/",
+    "$crypto/": "https://deno.land/x/crypto@v0.10.0/",
     "$fresh/": "https://deno.land/x/fresh@1.1.0/",
     "preact": "https://esm.sh/preact@10.10.6",
     "preact/": "https://esm.sh/preact@10.10.6/",
