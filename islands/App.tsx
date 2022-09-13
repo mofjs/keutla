@@ -1,5 +1,6 @@
 import { useMemo, useState } from "preact/hooks";
 import Board from "../components/Board.tsx";
+import GameOver from "../components/GameOver.tsx";
 import Keyboard from "../components/Keyboard.tsx";
 import { GameResult } from "../utils/game.ts";
 
@@ -61,6 +62,14 @@ export default function App({ gameResult }: Props) {
     return charHints;
   }, [gr.hints]);
 
+  const onRetry = async () => {
+    const res = await fetch("/api/game");
+    if (res.ok) {
+      const gr = await res.json();
+      setGr(gr);
+    }
+  };
+
   return (
     <div className="h-full min-h-[640px] w-full max-w-lg min-w-[360px] mx-auto px-4 flex flex-col justify-around items-center">
       <Board {...gr}></Board>
@@ -70,6 +79,8 @@ export default function App({ gameResult }: Props) {
         onEnter={onEnter}
         charHints={charHints}
       />
+      {gr.isGameOver &&
+        <GameOver isWinning={gr.isWinngin} onRetry={onRetry} />}
     </div>
   );
 }
