@@ -4,11 +4,11 @@ interface Props {
   onPressChar: (char: string) => void;
   onDelete: () => void;
   onEnter: () => void;
-  states: { [char: string]: boolean | null };
+  charHints: { [char: string]: boolean | null };
 }
 
 export default function Keyboard(
-  { onPressChar, onDelete, onEnter, states }: Props,
+  { onPressChar, onDelete, onEnter, charHints }: Props,
 ) {
   return (
     <div className="w-full flex flex-col space-y-3 py-4 relative z-auto">
@@ -16,7 +16,7 @@ export default function Keyboard(
         {"qwertyuiop".split("").map((char) => (
           <KeyButton
             key={char}
-            state={states[char]}
+            state={charHints[char]}
             onClick={() => onPressChar(char)}
           >
             {char}
@@ -28,7 +28,7 @@ export default function Keyboard(
         {"asdfghjkl".split("").map((char) => (
           <KeyButton
             key={char}
-            state={states[char]}
+            state={charHints[char]}
             onClick={() => onPressChar(char)}
           >
             {char}
@@ -41,7 +41,7 @@ export default function Keyboard(
         {"zxcvbnm".split("").map((char) => (
           <KeyButton
             key={char}
-            state={states[char]}
+            state={charHints[char]}
             onClick={() => onPressChar(char)}
           >
             {char}

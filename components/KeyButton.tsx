@@ -13,7 +13,7 @@ export default function KeyButton({ state, onClick, children }: Props) {
     : state === false
     ? tw`bg-yellow-500`
     : state === null
-    ? tw`bg-gray-500`
+    ? tw`bg-gray-800`
     : tw`bg-gray-300 dark:bg-gray-500`;
   const text = state === null
     ? tw`text-white dark:text-gray-200`

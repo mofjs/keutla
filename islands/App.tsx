@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useMemo, useState } from "preact/hooks";
 import Board from "../components/Board.tsx";
 import Keyboard from "../components/Keyboard.tsx";
 import { GameResult } from "../utils/game.ts";
@@ -49,6 +49,18 @@ export default function App({ gameResult }: Props) {
     }
   };
 
+  const charHints = useMemo(() => {
+    const charHints: { [char: string]: boolean | null } = {};
+    gr.hints.forEach((hint, i) => {
+      const guess = gr.guesses[i].split("");
+      hint.forEach((state, j) => {
+        if (!state && charHints[guess[j]]) return;
+        charHints[guess[j]] = state;
+      });
+    });
+    return charHints;
+  }, [gr.hints]);
+
   return (
     <div className="h-full min-h-[640px] w-full max-w-lg min-w-[480px] mx-auto px-4 flex flex-col justify-around items-center">
       <Board {...gr}></Board>
@@ -56,7 +68,7 @@ export default function App({ gameResult }: Props) {
         onPressChar={onPressChar}
         onDelete={onDelete}
         onEnter={onEnter}
-        states={{}}
+        charHints={charHints}
       />
     </div>
   );
