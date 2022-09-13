@@ -12,7 +12,7 @@ export const handler: Handlers = {
     let gs: GameState;
     try {
       const cookies = getCookies(req.headers);
-      gs = await decrypt<GameState>(cookies["gs"]);
+      gs = decrypt<GameState>(cookies["gs"]);
     } catch (_) {
       gs = {
         answer: await get_random_word(),
@@ -21,7 +21,7 @@ export const handler: Handlers = {
     }
     const result = getGameResult(gs);
     const res = await ctx.render(result);
-    setCookie(res.headers, { name: "gs", value: await encrypt(gs), path: "/" });
+    setCookie(res.headers, { name: "gs", value: encrypt(gs), path: "/" });
     return res;
   },
 };

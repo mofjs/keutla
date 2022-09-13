@@ -13,7 +13,7 @@ export const handler: Handlers = {
     const result = getGameResult(gs);
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
-    setCookie(headers, { name: "gs", value: await encrypt(gs), path: "/" });
+    setCookie(headers, { name: "gs", value: encrypt(gs), path: "/" });
     return new Response(JSON.stringify(result), {
       headers,
     });
@@ -21,7 +21,7 @@ export const handler: Handlers = {
   async POST(req, _ctx) {
     try {
       const cookies = getCookies(req.headers);
-      const gs = await decrypt<GameState>(cookies["gs"]);
+      const gs = decrypt<GameState>(cookies["gs"]);
       console.log({ gs });
       const json = await req.json();
       const guess = json.guess;
@@ -29,7 +29,7 @@ export const handler: Handlers = {
       const result = getGameResult(gs);
       const headers = new Headers();
       headers.append("Content-Type", "application/json");
-      setCookie(headers, { name: "gs", value: await encrypt(gs), path: "/" });
+      setCookie(headers, { name: "gs", value: encrypt(gs), path: "/" });
       return new Response(JSON.stringify(result), {
         headers,
       });
