@@ -21,7 +21,7 @@ export default function KeyButton({ state, onClick, children }: Props) {
     ? tw`text-gray-900 dark:text-gray-200`
     : tw`text-white`;
   return <button
-    className={tw`min-h-[48px] flex-1 rounded-md uppercase font-semibold text-sm flex items-center justify-center ${color} ${text} select-none px-3`}
+    className={tw`min-h-[36px] sm:min-h-[48px] flex-1 rounded-md uppercase font-semibold text-sm flex items-center justify-center ${color} ${text} select-none px-1 sm:px-3`}
     onClick={onClick}
   >
     {children}

@@ -62,7 +62,7 @@ export default function App({ gameResult }: Props) {
   }, [gr.hints]);
 
   return (
-    <div className="h-full min-h-[640px] w-full max-w-lg min-w-[480px] mx-auto px-4 flex flex-col justify-around items-center">
+    <div className="h-full min-h-[640px] w-full max-w-lg min-w-[360px] mx-auto px-4 flex flex-col justify-around items-center">
       <Board {...gr}></Board>
       <Keyboard
         onPressChar={onPressChar}
