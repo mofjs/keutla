@@ -1,0 +1,30 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "deno",
+			"command": "run",
+			"args": [
+				"--allow-all",
+				"--watch=static/,routes/",
+				"dev.ts"
+			],
+			"problemMatcher": [
+				"$deno"
+			],
+			"label": "start"
+		},
+		{
+			"type": "deno",
+			"command": "run",
+			"args": [
+				"--allow-all",
+				"generate.ts"
+			],
+			"problemMatcher": [
+				"$deno"
+			],
+			"label": "generate"
+		}
+	]
+}
