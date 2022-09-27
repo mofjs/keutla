@@ -16,7 +16,7 @@ export default function Board({ length, guesses, hints }: Props) {
         return (
           <div className="flex flex-row gap-1.5 relative" key={i}>
             {answer.split("").map((char, j) => {
-              return <Tile char={char} state={state[j]} key={`${j}-${char}`}/>;
+              return <Tile char={char} state={state[j]} index={j} key={`${j}-${char}`}/>;
             })}
           </div>
         );
