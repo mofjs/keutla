@@ -1,29 +1,25 @@
+import { ClientGameState } from "./game-state.client.ts";
 import { is_valid_word } from "./kbbi.ts";
 
-export interface GameState {
+export interface ServerGameState {
   answer: string;
   guesses: string[];
+  timestamp: number;
 }
 
-export interface GameResult {
-  length: number;
-  guesses: string[];
-  hints: (boolean | null)[][];
-  isGameOver: boolean;
-  isWinngin: boolean;
-}
-
-export function getGameResult(gs: GameState): GameResult {
+export function toClientGameState(gs: ServerGameState): ClientGameState {
   return {
+    answer: isGameOver(gs) ? gs.answer : null,
     length: gs.answer.length,
     guesses: gs.guesses,
     hints: getHints(gs),
     isGameOver: isGameOver(gs),
-    isWinngin: isWinning(gs),
+    isWinning: isWinning(gs),
+    duration: Date.now() - gs.timestamp,
   };
 }
 
-export async function addGuess(gs: GameState, guess: string) {
+export async function addGuess(gs: ServerGameState, guess: string) {
   if (isGameOver(gs)) {
     throw "Game is already over.";
   }
@@ -31,12 +27,12 @@ export async function addGuess(gs: GameState, guess: string) {
     throw "Word already submitted.";
   }
   if (!await is_valid_word(guess)) {
-    throw "Invalid word."
+    throw "Invalid word.";
   }
   gs.guesses.push(guess);
 }
 
-const getHints = (gs: GameState) => {
+const getHints = (gs: ServerGameState) => {
   const hints: (boolean | null)[][] = [];
   gs.guesses.forEach((guess) => {
     const answerChars: (string | null)[] = gs.answer.split("");
@@ -62,10 +58,10 @@ const getHints = (gs: GameState) => {
   return hints;
 };
 
-const isWinning = (gs: GameState) => {
+const isWinning = (gs: ServerGameState) => {
   return gs.guesses.includes(gs.answer);
 };
 
-const isGameOver = (gs: GameState) => {
+const isGameOver = (gs: ServerGameState) => {
   return isWinning(gs) || gs.guesses.length >= 6;
 };
