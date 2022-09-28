@@ -12,6 +12,7 @@ export interface ClientGameState {
 
 export function useClientGameState(initialState: ClientGameState) {
   const [cgs, setCgs] = useState(initialState);
+  const [guessInvalid, setGuessInvalid] = useState(false);
 
   const onPressChar = (char: string) => {
     setCgs((cgs) => {
@@ -49,6 +50,11 @@ export function useClientGameState(initialState: ClientGameState) {
     if (res.ok) {
       const cgs = await res.json();
       setCgs(cgs);
+    } else {
+      setGuessInvalid(true);
+      setTimeout(() => {
+        setGuessInvalid(false);
+      }, 600);
     }
   }, [cgs.guesses, cgs.hints]);
 
@@ -84,6 +90,7 @@ export function useClientGameState(initialState: ClientGameState) {
       length,
       guesses,
       hints,
+      guessInvalid: !!guessInvalid,
     },
     keyboardProps: {
       onPressChar,
