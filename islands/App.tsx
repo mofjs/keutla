@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function App({ clientGameState }: Props) {
-  const { boardProps, keyboardProps, isGameOver, isWinning, onRetry } =
+  const { boardProps, keyboardProps, gameOverProps } =
     useClientGameState(clientGameState);
 
   return (
@@ -20,8 +20,7 @@ export default function App({ clientGameState }: Props) {
       <Keyboard
         {...keyboardProps}
       />
-      {isGameOver &&
-        <GameOver isWinning={isWinning} onRetry={onRetry} />}
+      <GameOver {...gameOverProps} />
     </div>
   );
 }

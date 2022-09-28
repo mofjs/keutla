@@ -83,7 +83,7 @@ export function useClientGameState(initialState: ClientGameState) {
     }
   };
 
-  const { length, guesses, hints, isGameOver, isWinning } = cgs;
+  const { length, guesses, hints, isGameOver, isWinning, answer, duration } = cgs;
 
   return {
     boardProps: {
@@ -98,8 +98,12 @@ export function useClientGameState(initialState: ClientGameState) {
       onEnter,
       charHints,
     },
-    isGameOver,
-    isWinning,
-    onRetry,
+    gameOverProps: {
+      isGameOver,
+      isWinning,
+      answer,
+      duration,
+      onRetry,
+    }
   };
 }
